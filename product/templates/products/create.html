@@ -1,0 +1,50 @@
+{% extends "index/base.html" %}  <!-- Extiende la plantilla base "index/base.html" -->
+
+{% block content %}  <!-- Comienza el bloque de contenido específico de esta plantilla -->
+<div class="container mt-3">  <!-- Contenedor Bootstrap con margen superior -->
+    <h2>Crear Producto</h2>  <!-- Encabezado para indicar que se está creando un producto -->
+
+    <!-- Formulario para crear un nuevo producto -->
+    <form method="post">
+        {% csrf_token %}  <!-- Incluye un token CSRF para protección contra ataques de falsificación de solicitudes entre sitios -->
+
+        <!-- Campo para el nombre del producto -->
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+
+        <!-- Campo para la descripción del producto -->
+        <div class="form-group">
+            <label>Descripción</label>
+            <textarea name="description" class="form-control"></textarea>
+        </div>
+
+        <!-- Campo para el precio del producto -->
+        <div class="form-group">
+            <label>Precio</label>
+            <input type="number" step="1000" name="price" class="form-control" required>
+        </div>
+
+        <!-- Campo para seleccionar la categoría del producto -->
+        <div class="form-group">
+            <label>Categoría</label>
+            <select name="id_category" class="form-control">
+                <option value="">Selecciona una categoría</option>
+                {% for category in categories %}  <!-- Itera sobre las categorías disponibles -->
+                    <option value="{{ category.id }}">{{ category.name }}</option>  <!-- Opción para cada categoría -->
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Campo para el stock del producto -->
+        <div class="form-group">
+            <label>Stock</label>
+            <input type="number" name="stock" class="form-control">
+        </div>
+
+        <!-- Botón para enviar el formulario y guardar el producto -->
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>  <!-- Fin del contenedor -->
+{% endblock %}  <!-- Fin del bloque de contenido específico de esta plantilla -->
